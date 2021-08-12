@@ -97,12 +97,14 @@ export default function MyPosts({goToLink,openMap}){
             return
         }
 
-        const getNewPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${user.user.id}/posts?offset=20`,config)
-
+        
+        const getNewPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${user.user.id}/posts?olderThan=${myPosts[myPosts.length - 1].id}`,config)
+       
         getNewPosts.then((response)=>{
            
-
+            console.log(response.data.posts)
             if(response.data.posts.length<10){
+                
                 setHasMore(false)
             }else{
                 setHasMore(true)
@@ -130,6 +132,7 @@ export default function MyPosts({goToLink,openMap}){
         <TimelineContainer>
             <Title>
                 <h1>my posts</h1>
+                
             </Title> 
                 
                 <TimelineContent>
