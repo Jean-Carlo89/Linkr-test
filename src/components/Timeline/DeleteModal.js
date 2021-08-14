@@ -16,9 +16,14 @@ export default function DeleteModal ({modalIsOpen, toggleModal, update, id}) {
 
     function DeletePost () {
         const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/posts/${id}`, config).then((answer)=>{
-
+            console.log('Chegou aqui')
+           
             toggleModal();
+            console.log('passou do modal sem erro')
+         
             update();
+            console.log('passou da update')
+            return
 
         }).catch((error)=>{
             toggleModal();

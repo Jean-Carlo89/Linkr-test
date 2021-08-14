@@ -64,11 +64,13 @@ export default function MyPosts({goToLink,openMap}){
 }
 
         function update () {
-            const getPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${user.user.id}/posts?earlierThan${myPosts[0].id}`,config)
-
+           // const getPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${user.user.id}/posts?earlierThan${myPosts[0].id}`,config)
+           const getPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${user.user.id}/posts`,config)
         getPosts.then((response)=>{
+            console.log(response.data.posts)
              const newArray = (response.data.posts.map((m)=>({...m, toEdit: false})));
-             setMyPosts(...newArray,...myPosts)
+            // setMyPosts(...newArray,...myPosts)
+            setMyPosts(newArray)
             setServerLoading(false)
             let sharpedHeart = []
             newArray.forEach( post => {

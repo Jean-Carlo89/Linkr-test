@@ -86,11 +86,11 @@ return(
     <TimelinePosts>
         {serverLoading 
             ? <Loader type="Circles" className='loader' color="#FFF"  />
-            : (allPosts.length===0 
+            : (allPosts.length===0
             ? <NoPostsYet>{noPostsMessage}</NoPostsYet>
             :allPosts.map((post)=>{
             return(
-                <li key={ post["repostId"] ? post.repostId : post.id} id={post.id}>
+                <li key={ post["repostId"] ? post.repostId : post.id} id={post["repostId"] ? post.repostId : post.id}>
 
                     {post["repostedBy"] ? 
                             (<RepostIcon>
@@ -130,7 +130,7 @@ return(
                                     <UserName id={post.user.id} onClick={()=>goToUserPosts(post.user.id)}>{post.user.username}</UserName>
                                     {pinLocation(post)}
                                 </Flex>
-                                <ActionsPost update={update} post={post} tryingToEdit={tryingToEdit} id={post.id}/>
+                                <ActionsPost update={update} post={post} tryingToEdit={tryingToEdit} id={post["repostId"] ? post.repostId : post.id}/>
                             </SpaceBetween>
                             <PostContent open={!post.toEdit} >
                                 <ReactHashtag 
