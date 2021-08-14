@@ -161,7 +161,7 @@ export default function OtherUsersPosts({goToLink, openMap}){
             return
         }
 
-        const getNewPosts =  axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${id}/posts?offset=20`,config)
+        const getNewPosts =  axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${id}/posts?olderThan=${usersPosts[usersPosts.length-1].id}`,config)
 
         getNewPosts.then((response)=>{
             

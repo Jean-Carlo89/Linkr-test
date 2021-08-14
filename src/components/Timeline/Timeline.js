@@ -75,14 +75,21 @@ export default function Timeline({goToLink, openMap}){
         getNumberofFollowing.then((response) => setNumberofFollowing(response.data.users))
     },[])
 
-    useInterval(() => {
-    
+    useInterval( () => {
+        console.log('updatou')
+        let x;
+        if(allPosts[0]["repostId"]){
+            x=`${allPosts[0].repostId}`
+        }else{
+            x=`${allPosts[0].id}`
+        }
         
-        const getNewPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/following/posts?earlierThan=${allPosts[0].id}`,config)
+        console.log(x)
+        const getNewPosts =  axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/following/posts?earlierThan=${x}`,config)
 
     
         getNewPosts.then((response)=>{
-           
+           console.log(response.data.posts)
         
 
             if(response.data.posts.length===0){
@@ -90,8 +97,8 @@ export default function Timeline({goToLink, openMap}){
             }
             if(response.data.posts !== undefined){
                 const datas = response.data.posts
-                const newData = datas.filter( data => data.id !== allPosts[0].id)
-                setAllPosts([...newData, ...allPosts]);
+                
+                setAllPosts([...datas,...allPosts]);
             } 
          })
             
@@ -189,6 +196,7 @@ export default function Timeline({goToLink, openMap}){
             <TimelineContainer>
                 <Title>
                     <h1>timeline</h1>
+                    <button onClick={()=>console.log(allPosts)}>aaaaaa</button>
                 </Title> 
         
                     <TimelineContent>

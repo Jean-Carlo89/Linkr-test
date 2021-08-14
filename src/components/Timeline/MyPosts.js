@@ -35,15 +35,40 @@ export default function MyPosts({goToLink,openMap}){
     } 
 
     useEffect(()=>{
-        update();
+        getMyPosts();
     },[])
 
+
+    function getMyPosts () {
+        const getPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${user.user.id}/posts`,config)
+
+    getPosts.then((response)=>{
+         const newArray = (response.data.posts.map((m)=>({...m, toEdit: false})));
+         setMyPosts(newArray)
+        setServerLoading(false)
+        let sharpedHeart = []
+        newArray.forEach( post => {
+            post.likes.forEach(n =>{
+            if(n.userId === user.user.id){
+                sharpedHeart.push({id: post.id, likes: post.likes.length, names: post.likes.map(n => n["user.username"])})
+            }})
+        })
+        setLikedPosts(sharpedHeart);
+        setOlderLikes(sharpedHeart);
+    })
+
+    getPosts.catch((responseError)=>{
+        alert(`Houve uma falha ao obter os posts. Por favor atualize a página`)
+        return
+    })
+}
+
         function update () {
-            const getPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${user.user.id}/posts`,config)
+            const getPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${user.user.id}/posts?earlierThan${myPosts[0].id}`,config)
 
         getPosts.then((response)=>{
              const newArray = (response.data.posts.map((m)=>({...m, toEdit: false})));
-             setMyPosts(newArray)
+             setMyPosts(...newArray,...myPosts)
             setServerLoading(false)
             let sharpedHeart = []
             newArray.forEach( post => {
