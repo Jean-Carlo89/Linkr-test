@@ -93,8 +93,8 @@ export default function OtherUsersPosts({goToLink, openMap}){
         }
 
 
-      const getNewPosts =  axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/hashtags/${hashtag}/posts?olderThan=${hashtagPosts[hashtagPosts.length - 1].id}`,config)
-
+     // const getNewPosts =  axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/hashtags/${hashtag}/posts?olderThan=${hashtagPosts[hashtagPosts.length - 1].id}`,config)
+     const getNewPosts =  axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/hashtags/${hashtag}/posts?offset=${hashtagPosts.length}`,config)
         getNewPosts.then((response)=>{
             
             

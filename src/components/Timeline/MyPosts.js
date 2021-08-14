@@ -122,8 +122,15 @@ export default function MyPosts({goToLink,openMap}){
             return
         }
 
+        let postId;
+        if(myPosts[0]["repostId"]){
+            postId=`${myPosts[myPosts.length - 1].repostId}`
+        }else{
+            postId=`${myPosts[myPosts.length - 1].id}`
+        }
         
-        const getNewPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${user.user.id}/posts?olderThan=${myPosts[myPosts.length - 1].id}`,config)
+       // const getNewPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${user.user.id}/posts?olderThan=${postId}`,config)
+       const getNewPosts = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/${user.user.id}/posts?offset=${myPosts.length}`,config)
        
         getNewPosts.then((response)=>{
            
@@ -144,6 +151,7 @@ export default function MyPosts({goToLink,openMap}){
 
         getNewPosts.catch((responseError)=>{
             alert('houve um erro ao atualizar')
+            console.log(responseError)
             
         })
 

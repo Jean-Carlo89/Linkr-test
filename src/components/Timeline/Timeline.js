@@ -76,16 +76,16 @@ export default function Timeline({goToLink, openMap}){
     },[])
 
     useInterval( () => {
-        console.log('updatou')
-        let x;
+        
+        let postId;
         if(allPosts[0]["repostId"]){
-            x=`${allPosts[0].repostId}`
+            postId=`${allPosts[0].repostId}`
         }else{
-            x=`${allPosts[0].id}`
+            postId=`${allPosts[0].id}`
         }
         
-        console.log(x)
-        const getNewPosts =  axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/following/posts?earlierThan=${x}`,config)
+        
+        const getNewPosts =  axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/following/posts?earlierThan=${postId}`,config)
 
     
         getNewPosts.then((response)=>{
